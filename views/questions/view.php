@@ -1,46 +1,48 @@
-<h1>View Question</h1>
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Content</th>
-        <th>Created on</th>
-        <th>Author</th>
-        <th>Author Id</th>
-        <th>Category</th>
-        <th>Category Id</th>
-        <th>Action</th>
-    </tr>
-    <tr>
-        <td><?= $this->question['id'] ?></td>
-        <td><?= htmlspecialchars($this->question['title']) ?></td>
-        <td><?= htmlspecialchars($this->question['content']) ?></td>
-        <td><?= htmlspecialchars($this->question['created_on']) ?></td>
-        <td><?= htmlspecialchars($this->question['author_name']) ?></td>
-        <td><?= htmlspecialchars($this->question['author_id']) ?></td>
-        <td><?= htmlspecialchars($this->question['category_name']) ?></td>
-        <td><?= htmlspecialchars($this->question['category_id']) ?></td>
-        <td><a href="/questions/delete/<?=$this->question['id']?> ">[Delete]</a></td>
-    </tr>
-</table>
-<table>
-    <tr>
-        <th>Answer Id</th>
-        <th>Content</th>
-        <th>Created on</th>
-        <th>Author</th>
-        <th>Author Id</th>
-        <th>Action</th>
-    </tr>
-    <?php foreach ($this->answers as $answer) : ?>
-        <tr>
-            <td><?= $answer['id'] ?></td>
-            <td><?= htmlspecialchars($answer['content']) ?></td>
-            <td><?= htmlspecialchars($answer['created_on']) ?></td>
-            <td><?= htmlspecialchars($answer['author_name']) ?></td>
-            <td><?= htmlspecialchars($answer['author_id']) ?></td>
-            <td><a href="/answers/delete/<?=$answer['id']?> ">[Delete]</a></td>
-        </tr>
-    <?php endforeach ?>
-</table>
-<a href="/answers/create">[Add New Answer]</a>
+
+<main class="content">
+    <article class="small-question" data-id="<?= $this->question['id'] ?>">
+        <header>
+            <a href="/" class="small-question-category"><?= htmlspecialchars($this->question['category_name']) ?></a>
+            <h2 class="small-question-title">
+                <a href="/questions/view/<?= htmlspecialchars($this->question['id']) ?>">
+                    <?= htmlspecialchars($this->question['title']) ?>
+                </a>
+            </h2>
+            <div class="post-info">
+                <a href="/users/profile/<?= htmlspecialchars($this->question['author_name']) ?>" class="small-question-author">Author: <?= htmlspecialchars($this->question['author_name']) ?></a>
+                <span><?= htmlspecialchars($this->question['created_on']) ?></span>
+                <span class="small-question-visits">Visits: 10</span>
+            </div>
+        </header>
+        <main>
+            <p class="small-question-content"><?= htmlspecialchars($this->question['content']) ?></p>
+        </main>
+        <footer>
+            <a href="/">*tags*</a>
+        </footer>
+    </article>
+    <ul data-type="answersToQuestion">
+        <?php foreach ($this->answers as $answer) : ?>
+            <li data-type="answer" data-id="<?= htmlspecialchars($answer['id']) ?>">
+                <div class="post-info">
+                    <a href="/users/profile/<?= htmlspecialchars($answer['author_name']) ?>" class="small-question-author">
+                        Author: <?= htmlspecialchars($answer['author_name']) ?>
+                    </a>
+                    <span><?= htmlspecialchars($answer['created_on']) ?></span>
+                </div>
+                <p><?= htmlspecialchars($answer['content']) ?></p>
+                <?php if($this->userIsAuthorToAnswer($answer['id'])) : ?>
+                    <form action="/answers/delete/<?= $answer['id']?>" method="post">
+                        <input type="submit" value="Delete"/>
+                    </form>
+                <?php endif;?>
+            </li>
+        <?php endforeach ?>
+    </ul>
+    <?php if($this->isLoggedIn) :?>
+        <form method="post" action="/answers/create">
+            <textarea id="answer-content-input" name="answer_content"></textarea>
+            <input id="add-answer-btn" type="submit" value="Add new answer">
+        </form>
+    <?php endif; ?>
+</main>

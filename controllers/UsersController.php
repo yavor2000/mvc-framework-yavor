@@ -55,6 +55,6 @@ class UsersController extends BaseController
     {
         unset($_SESSION['username']);
         $this->isLoggedIn = false;
-        $this->redirect('home');
+        $this->redirect('/');
     }
 }

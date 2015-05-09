@@ -48,6 +48,8 @@ abstract class BaseController
             }
             include_once($viewFileName);
             if ($includeLayout) {
+                $asideFile = 'views/layouts/' . $this->layoutName . '/aside.php';
+                include_once($asideFile);
                 $footerFile = 'views/layouts/' . $this->layoutName . '/footer.php';
                 include_once($footerFile);
             }
@@ -81,6 +83,28 @@ abstract class BaseController
     {
         if ($this->isLoggedIn) {
             return $_SESSION['username'];
+        }
+
+        return false;
+    }
+
+    public function userIsAuthorToAnswer($answerId)
+    {
+        if ($this->isLoggedIn) {
+            $userDb = new UsersModel();
+
+            return $userDb->checkIfAuthorToAnswer($this->getUsername(), $answerId);
+        }
+
+        return false;
+    }
+
+    public function userIsAuthorToQuestion($questionId)
+    {
+        if ($this->isLoggedIn) {
+            $userDb = new UsersModel();
+
+            return $userDb->checkIfAuthorToQuestion($this->getUsername(), $questionId);
         }
 
         return false;

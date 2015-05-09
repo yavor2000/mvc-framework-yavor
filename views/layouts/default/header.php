@@ -2,32 +2,47 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="/content/styles.css" />
+    <link rel="stylesheet" href="/content/responsive.css" />
+    <link rel="stylesheet" href="/content/style.css" />
+
+
     <title>
         <?php if (isset($this->title)) echo htmlspecialchars($this->title) ?>
     </title>
 </head>
 
-<body>
-    <header>
-        <a href="/"><img src="/content/images/site-logo.png"></a>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/questions">Questions</a></li>
-        </ul>
-        <?php if($this->isLoggedIn) : ?>
-        <div id="logged-in-info">
-            <span>Hello, <?= htmlspecialchars($this->getUsername()) ?></span>
-            <form action="/users/logout"><input type="submit" value="Logout"/></form>
-        </div>
-        <?php else : ?>
-        <div id="logged-out-info">
-            <span>Hello, Stranger</span>
-            <div>
-                <a href="/users/login">Login</a> or <a href="/users/register">Register</a>
-            </div>
-        </div>
-        <?php endif;?>
-    </header>
+<body class="body">
 
-    <?php include('messages.php'); ?>
+<header class="mainHeader">
+    <a href="#/"><img src="/content/images/pin.png"></a>
+    <nav>
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/questions/create">Ask Question</a>
+            </li>
+            <?php if($this->isLoggedIn) : ?>
+                <li id="userProfileLi">
+                    <a href="/users/profile/<?= htmlspecialchars($this->getUsername()) ?>" id="userProfile">
+                        <?= htmlspecialchars($this->getUsername()) ?>'s profile
+                    </a>
+                </li>
+                <li id="logoutLi">
+                    <a href="/users/logout" id="logoutAtag">Logout</a>
+                </li>
+            <?php else : ?>
+                <li id="loginLi">
+                    <a href="/users/login" id="loginAtag">Login</a>
+                </li>
+                <li id="registerLi">
+                    <a href="/users/register" id="registerAtag" style="display: inline-block;">Register</a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+</header>
+
+<?php include('messages.php'); ?>
+<div class="mainContent">
