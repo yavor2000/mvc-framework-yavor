@@ -1,7 +1,9 @@
 <?php
 
-class AnswersModel extends BaseModel {
-    public function createAnswer($content, $questionId, $username) {
+class AnswersModel extends BaseModel
+{
+    public function createAnswer($content, $questionId, $username)
+    {
         if ($content == '' || is_null($questionId)) {
             return false;
         }
@@ -12,7 +14,7 @@ class AnswersModel extends BaseModel {
         $getUserStatement->execute();
         $user = $getUserStatement->get_result()->fetch_assoc();
 
-        if(!isset($user['id'])){
+        if (!isset($user['id'])) {
             return false;
         }
 
@@ -20,14 +22,17 @@ class AnswersModel extends BaseModel {
             "INSERT INTO answers(content, question_id, user_id, created_on) VALUES(?, ?, ?, ?)");
         $statement->bind_param("siis", $content, $questionId, $user['id'], date("y-m-d H:i:s"));
         $statement->execute();
+
         return $statement->affected_rows > 0;
     }
 
-    public function deleteAnswer($id) {
+    public function deleteAnswer($id)
+    {
         $statement = self::$db->prepare(
             "DELETE FROM answers WHERE id = ?");
         $statement->bind_param("i", $id);
         $statement->execute();
+
         return $statement->affected_rows > 0;
     }
 }
