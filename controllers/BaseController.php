@@ -1,6 +1,7 @@
 <?php
 
-abstract class BaseController {
+abstract class BaseController
+{
     protected $controllerName;
     protected $actionName;
     protected $layoutName = DEFAULT_LAYOUT;
@@ -8,29 +9,33 @@ abstract class BaseController {
     protected $isPost = false;
     protected $isLoggedIn = false;
 
-    function __construct($controllerName, $actionName) {
+    function __construct($controllerName, $actionName)
+    {
         $this->controllerName = $controllerName;
         $this->actionName = $actionName;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->isPost = true;
         }
 
-        if(isset($_SESSION['username'])){
+        if (isset($_SESSION['username'])) {
             $this->isLoggedIn = true;
         }
 
         $this->onInit();
     }
 
-    public function onInit() {
+    public function onInit()
+    {
         // Implement initializing logic in the subclasses
     }
 
-    public function index() {
+    public function index()
+    {
         // Implement the default action in the subclasses
     }
 
-    public function renderView($viewName = null, $includeLayout = true) {
+    public function renderView($viewName = null, $includeLayout = true)
+    {
         if (!$this->isViewRendered) {
             if ($viewName == null) {
                 $viewName = $this->actionName;
@@ -50,13 +55,17 @@ abstract class BaseController {
         }
     }
 
-    public function redirectToUrl($url) {
+    public function redirectToUrl($url)
+    {
         header("Location: " . $url);
         die;
     }
 
     public function redirect(
-            $controllerName, $actionName = null, $params = null) {
+        $controllerName,
+        $actionName = null,
+        $params = null
+    ) {
         $url = '/' . urlencode($controllerName);
         if ($actionName != null) {
             $url .= '/' . urlencode($actionName);
@@ -68,15 +77,17 @@ abstract class BaseController {
         $this->redirectToUrl($url);
     }
 
-    public function getUsername(){
-        if($this->isLoggedIn){
+    public function getUsername()
+    {
+        if ($this->isLoggedIn) {
             return $_SESSION['username'];
         }
 
         return false;
     }
 
-    function addMessage($msg, $type) {
+    function addMessage($msg, $type)
+    {
         if (!isset($_SESSION['messages'])) {
             $_SESSION['messages'] = array();
         };
@@ -84,11 +95,13 @@ abstract class BaseController {
             array('text' => $msg, 'type' => $type));
     }
 
-    function addInfoMessage($msg) {
+    function addInfoMessage($msg)
+    {
         $this->addMessage($msg, 'info');
     }
 
-    function addErrorMessage($msg) {
+    function addErrorMessage($msg)
+    {
         $this->addMessage($msg, 'error');
     }
 }
