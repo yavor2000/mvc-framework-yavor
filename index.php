@@ -1,12 +1,18 @@
 <?php
 
 session_start();
-
+$passHash = password_hash('123', PASSWORD_BCRYPT);
 require_once('includes/config.php');
-
-$requestParts = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+if (strpos($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']) > -1) {
+    $url = substr($_SERVER['REQUEST_URI'], strlen($_SERVER['SCRIPT_NAME']) + 1);
+} else {
+    $url = $_SERVER['REQUEST_URI'];
+}
+$requestParts = explode('/', $url, PHP_URL_PATH);
 
 $controllerName = DEFAULT_CONTROLLER;
+
+
 if (count($requestParts) >= 2 && $requestParts[1] != '') {
     $controllerName = $requestParts[1];
 }
@@ -16,7 +22,7 @@ if (count($requestParts) >= 3 && $requestParts[2] != '') {
     $action = $requestParts[2];
 }
 
-$params = array_splice($requestParts, 3);
+$params = (strpos($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']) > -1) ? array_splice($requestParts, 0) : array_splice($requestParts, 3);
 
 $controllerClassName = ucfirst(strtolower($controllerName)) . 'Controller';
 $controllerFileName = "controllers/" . $controllerClassName . '.php';

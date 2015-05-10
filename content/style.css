@@ -168,7 +168,6 @@ main > form {
     border-radius: 5px;
     margin-left: 5%;
     width: 90%;
-    margin-top: 20px;
 }
 main > form > input[type="submit"]{
     width: 25%;
@@ -256,6 +255,26 @@ button, input[type="button"], #content {
     border-radius: 8px;
     background-color: rgb(0,141,220);
     color: white;
+}
+
+li.message{
+    padding: 10px;
+    text-align: center;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+li.error{
+    background-color: red;
+}
+li.info{
+    background-color: lightskyblue;
+}
+
+.content > form > p > a {
+    text-decoration: underline !important;
+    color: darkblue;
 }
 
 /*

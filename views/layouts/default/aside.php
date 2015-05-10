@@ -1,3 +1,4 @@
+</main>
 <aside id="categories">
     <h2>Category</h2>
     <ul>

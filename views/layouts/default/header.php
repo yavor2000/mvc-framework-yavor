@@ -43,6 +43,6 @@
         </ul>
     </nav>
 </header>
-
-<?php include('messages.php'); ?>
 <div class="mainContent">
+    <main class="content">
+<?php include('messages.php'); ?>
