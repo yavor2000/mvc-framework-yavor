@@ -4,8 +4,6 @@
 <head>
     <link rel="stylesheet" href="/content/responsive.css" />
     <link rel="stylesheet" href="/content/style.css" />
-
-
     <title>
         <?php if (isset($this->title)) echo htmlspecialchars($this->title) ?>
     </title>
@@ -14,7 +12,7 @@
 <body class="body">
 
 <header class="mainHeader">
-    <a href="#/"><img src="/content/images/pin.png"></a>
+    <a href="#/"><img src="/content/images/softuni-logo.png">Nakov's mvc framework</a>
     <nav>
         <ul>
 

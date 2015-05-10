@@ -12,7 +12,7 @@ ul{
  */
 
 body {
-    background-image: url('images/blog-pic.png');
+    background-image: url('images/blog-background.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -49,8 +49,10 @@ h2, h3, h4, h5, h6 {
 /*
    ======= Anchor style ====== 
    */
+
 a {
     outline: 0;
+    text-decoration: none;
 }
 
 a img {
@@ -65,17 +67,26 @@ a:link, a:visited {
 }
 
 a:hover, a:active {
-    background-color: #fff;
+    /*background: rgb(255, 245, 235);*/
+    /*background: rgba(255, 245, 235, .95);*/
     color: #000;
     text-decoration: none;
 }
 
+#softunia a:link {
+    font-weight: bold;
+    line-height: 4rem;
+}
+#softunia a:visited {
+    font-weight: bold;
+    line-height: 4rem;
+}
 /*
    ===== Main Navigation ===== 
  */
 
 .mainHeader nav {
-    background: #000;
+    background: #44f;
     font-size: 1.143em;
     height: 40px;
     line-height: 30px;
@@ -127,12 +138,17 @@ a:hover, a:active {
     -webkit-border-radius: 5px;
 }
 
+.mainContent ul,.mainContent ul li {
+    margin-bottom: 15px;
+}
+
 article {
     margin-bottom: 3%;
 }
 
 article.small-question{
-    background-color: #FFF;
+    background: rgb(255, 245, 235);
+    background: rgba(255, 245, 235, .95);
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -141,7 +157,7 @@ article.small-question{
 }
 
 article.small-question a, .post-info>a {
-    text-decoration: underline;
+    margin-bottom: 10px;
 }
 article.small-question header {
     line-height: 25px;
@@ -161,7 +177,6 @@ p.small-question-content {
 .small-question-category > span {
     text-decoration: none;
     color: #999;
-    font-style: italic;
 }
 
 .small-question > footer > form > input {
@@ -187,12 +202,12 @@ main > form {
 }
 main > form > input[type="submit"]{
     width: 25%;
-    background-color: lightskyblue;
+    background-color: beige;
     border: 1px solid lightslategray;
     display: block;
     padding: 1% !important;
     text-align: center;
-    border-radius: 15px;
+    /*border-radius: 15px;*/
 }
 
 main > form > textarea{
@@ -204,7 +219,7 @@ main > form > textarea{
 }
 
 main > ul > li{
-    background-color: #CEEFFD;
+    background-color: lightcyan;
     padding: 20px;
     list-style: none;
     border-radius: 5px;
@@ -231,10 +246,10 @@ main > ul > li> div>*{
 }
 
 .post-info {
-    font-style: italic;
+    /*font-style: italic;*/
     color: #999;
-    font-size: 85%;
-    margin-left: 5px;
+    font-size: 90%;
+    margin: 5px;
 }
 .post-info>* {
     margin-right: 5px;
@@ -273,16 +288,15 @@ button, input[type="button"], #content {
 li.message{
     padding: 10px;
     text-align: center;
-    border-radius: 25px;
     border: 1px solid black;
     margin : 0 0 10px 0;
 }
 
 li.error{
-    background-color: red;
+    background-color: lightpink;
 }
 li.info{
-    background-color: lightskyblue;
+    background-color: aquamarine;
 }
 
 .content > form > p > a {
@@ -302,7 +316,8 @@ aside {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-    background-color: #FFF;
+    background: rgb(235, 255, 210);
+    background: rgba(235, 255, 210, .95);
     padding: 2% 3%;
     margin-bottom: 2%;
 }
@@ -322,7 +337,7 @@ aside {
     margin-top: 2%;
     margin-bottom: 2%;
     padding-left: 0;
-    background-color: #000;
+    background-color: #55f;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
