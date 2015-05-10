@@ -40,7 +40,9 @@ class AnswersController extends BaseController
             $this->redirectToUrl("/users/login");
         }
 
-        //TODO add validtion if user is author
+        if (!$this->userIsAuthorToAnswer($id)) {
+            $this->addErrorMessage("You cannot delete this answer.");
+        }
 
         if ($this->db->deleteAnswer($id)) {
             $this->addInfoMessage("Answer deleted.");

@@ -11,7 +11,8 @@ class QuestionsModel extends BaseModel
                 u.username AS author_name,
                 u.id AS author_id,
                 c.name AS category_name,
-                c.id AS category_id
+                c.id AS category_id,
+                (select count(v.id) from question_visits v where v.question_id = q.id) AS visits
             FROM questions q
             LEFT JOIN users u ON q.author_id = u.id
             LEFT JOIN categories c ON q.category_id = c.id
@@ -28,17 +29,30 @@ class QuestionsModel extends BaseModel
                 q.content,
                 q.created_on,
                 u.username AS author_name,
-                u.id AS author_id,
                 c.name AS category_name,
-                c.id AS category_id
+                c.id AS category_id,
+                count(v.id) AS visits
             FROM questions q
             LEFT JOIN users u ON q.author_id = u.id
             LEFT JOIN categories c ON q.category_id = c.id
+            LEFT JOIN question_visits v ON v.question_id = q.id
             WHERE q.id = ?;");
         $statement->bind_param("i", intval($id));
         $statement->execute();
+        $result = $statement->get_result()->fetch_assoc();
 
-        return $statement->get_result()->fetch_assoc();
+        $getTagsStatement = self::$db->prepare(
+            "SELECT t.name
+            FROM questions q
+            JOIN questions_tags qt ON q.id = qt.question_id
+            JOIN tags t ON t.id = qt.tag_id
+            WHERE q.id = ?;");
+        $getTagsStatement->bind_param("i", intval($id));
+        $getTagsStatement->execute();
+        $tags = $getTagsStatement->get_result()->fetch_all(MYSQL_ASSOC);
+        $result['tags'] = $tags;
+
+        return $result;
     }
 
     public function createQuestion($title, $content, $username, $categoryId, $tagsArray)
@@ -98,8 +112,7 @@ class QuestionsModel extends BaseModel
             "SELECT a.id,
                 a.content,
                 a.created_on,
-                u.username AS author_name,
-                u.id AS author_id
+                u.username AS author_name
             FROM answers a
             LEFT JOIN users u ON a.user_id = u.id
             WHERE a.question_id = ?
@@ -122,6 +135,20 @@ class QuestionsModel extends BaseModel
         $tagId = $tagDb->getByName($tagName);
         $statement = self::$db->prepare("INSERT INTO questions_tags (tag_id, question_id) VALUES (?, ?);");
         $statement->bind_param("ii", intval($tagId), intval($questionId));
+        $statement->execute();
+
+        return $statement->affected_rows > 0;
+    }
+
+    public function addVisit($questionId, $userId)
+    {
+        if ($userId == null) {
+            $statement = self::$db->prepare("INSERT INTO question_visits(question_id, datetime) VALUES(?,?)");
+            $statement->bind_param("is", intval($questionId), date("y-m-d H:i:s"));
+        } else {
+            $statement = self::$db->prepare("INSERT INTO question_visits(question_id, user_id, datetime) VALUES(?,?,?)");
+            $statement->bind_param("iis", intval($questionId), intval($userId), date("y-m-d H:i:s"));
+        }
         $statement->execute();
 
         return $statement->affected_rows > 0;

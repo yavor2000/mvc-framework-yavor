@@ -4,8 +4,7 @@ abstract class BaseModel
 {
     protected static $db;
 
-    public function __construct()
-    {
+    public function __construct() {
         if (self::$db == null) {
             self::$db = new mysqli(
                 DB_HOST, DB_USER, DB_PASS, DB_NAME);

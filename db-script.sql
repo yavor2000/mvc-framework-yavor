@@ -183,3 +183,43 @@ INSERT INTO `tags` VALUES
 (null,'HTML');
 /*!40000 ALTER TABLE `tags` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+--
+-- Table structure for table `questions_tags`
+--
+
+DROP TABLE IF EXISTS `questions_tags`;
+
+CREATE TABLE `questions_tags` (
+  `question_id` int(11) NOT NULL,
+  `tag_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `question_visits`
+--
+
+DROP TABLE IF EXISTS `question_visits`;
+
+CREATE TABLE `question_visits` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) NOT NULL,
+  `user_id` int(11) NULL,
+  `datetime` datetime NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+LOCK TABLES `question_visits` WRITE;
+/*!40000 ALTER TABLE `question_visits` DISABLE KEYS */;
+INSERT INTO `question_visits` VALUES
+(null,2,1,now() - INTERVAL 30 MINUTE),
+(null,3,2,now() - INTERVAL 25 MINUTE),
+(null,4,3,now() - INTERVAL 24 MINUTE),
+(null,5,4,now() - INTERVAL 22 MINUTE));
+/*!40000 ALTER TABLE `question_visits` ENABLE KEYS */;
+UNLOCK TABLES;

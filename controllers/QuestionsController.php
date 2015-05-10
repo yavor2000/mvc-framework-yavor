@@ -18,12 +18,28 @@ class QuestionsController extends BaseController
     public function view($id)
     {
         $this->question = $this->db->getById($id);
-        $this->answers = $this->db->getAllAnswersForQuestion($id);
-        $_SESSION['currentQuestionId'] = $id;
+        if (!isset($this->question['title'])) {
+            $this->hasQuestion = false;
+            $this->addErrorMessage("No such question");
+        } else {
+            $this->hasQuestion = true;
+            $this->answers = $this->db->getAllAnswersForQuestion($id);
+            $this->title = $this->question['title'];
+            $_SESSION['currentQuestionId'] = $id;
+            $username = $this->getUsername();
+            if ($username) {
+                $userDb = new UsersModel();
+                $userId = $userDb->getByUsername($username);
+            } else {
+                $userId = null;
+            }
+            $this->db->addVisit($id, $userId);
+        }
     }
 
     public function create()
     {
+        $this->title = "Ask Question";
         if (!$this->isLoggedIn) {
             $this->addErrorMessage("Please log in first!");
             $this->redirectToUrl("/users/login");
@@ -33,7 +49,15 @@ class QuestionsController extends BaseController
             $content = $_POST['question_content'];
             $username = $this->getUsername();
             $categoryId = $_POST['category_id'];
-            if ($this->db->createQuestion($title, $content, $username, $categoryId)) {
+            $tagsString = $_POST['question_tags'];
+            $tagsArray = explode(", ", $tagsString);
+            if ($title == '' || $content == '' || count($tagsArray) == 0) {
+                $this->addErrorMessage("Please fill out all fields to create question.");
+
+                return;
+            }
+
+            if ($this->db->createQuestion($title, $content, $username, $categoryId, $tagsArray)) {
                 $this->addInfoMessage("Question created.");
                 $this->redirect('questions');
             } else {

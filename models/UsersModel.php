@@ -37,6 +37,15 @@ class UsersModel extends BaseModel
         return false;
     }
 
+    public function getByUsername($username)
+    {
+        $statement = self::$db->prepare("SELECT * FROM users WHERE username = ?");
+        $statement->bind_param("s", $username);
+        $statement->execute();
+
+        return $statement->get_result()->fetch_assoc();
+    }
+
     public function checkIfAuthorToAnswer($username, $answerId)
     {
         $statement = self::$db->prepare("

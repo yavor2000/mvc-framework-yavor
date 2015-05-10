@@ -1,14 +1,14 @@
-
-<form method="post" action="/questions/create">
-    <div>Title: </div>
-    <input type="text" name="question_title">
-    <div>Content: </div>
-    <input type="text" name="question_content">
-    <br/>
+<form method="post" action="/questions/create" id="loginSection" class="small-question">
+    <h2 id="loginLabel">Ask Question:</h2>
+    <input id="userNameLoginInput" type="text" placeholder="title..." value="" name="question_title">
+    <textarea id="answer-content-input" name="question_content" placeholder="content..."></textarea>
+    <label for="category_id">Category: </label>
     <select name="category_id">
-        <?php foreach($this->categories as $category) : ?>
+        <?php foreach($this->getAllCategories() as $category) : ?>
             <option value="<?= $category['id'] ?>"><?= htmlspecialchars($category['name']) ?></option>
         <?php endforeach; ?>
     </select>
-    <input type="submit" value="Create">
+    <br>
+    <input id="userNameLoginInput" type="text" placeholder="tags..." value="" name="question_tags">
+    <input id="loginButton" type="submit" value="Create"/>
 </form>

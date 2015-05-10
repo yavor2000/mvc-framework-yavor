@@ -3,6 +3,10 @@ html, body, div, p , span, a, table, tr, td, th, tbody, thead, tfoot, header, fo
     padding:0;
 }
 
+ul{
+    list-style: none;
+}
+
 /* 
    ======= Body style ======== 
  */
@@ -154,6 +158,20 @@ p.small-question-content {
 .small-question-category {
     float: right;
 }
+.small-question-category > span {
+    text-decoration: none;
+    color: #999;
+    font-style: italic;
+}
+
+.small-question > footer > form > input {
+    float: right;
+    background-color: lightskyblue;
+    padding: 6px;
+    border: none;
+    border-radius: 15px;
+}
+
 main.large-question > header{
     background-color: #FFF;
     border-radius: 5px;
@@ -166,8 +184,6 @@ main > form {
     background-color: white;
     padding: 2.5%;
     border-radius: 5px;
-    margin-left: 5%;
-    width: 90%;
 }
 main > form > input[type="submit"]{
     width: 25%;
@@ -185,9 +201,6 @@ main > form > textarea{
     padding: 0;
     width: 100%;
     border-radius: 5px;
-}
-main > ul{
-    padding-left: 5%;
 }
 
 main > ul > li{
@@ -262,7 +275,7 @@ li.message{
     text-align: center;
     border-radius: 25px;
     border: 1px solid black;
-    margin-bottom: 10px;
+    margin : 0 0 10px 0;
 }
 
 li.error{

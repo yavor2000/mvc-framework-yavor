@@ -12,6 +12,7 @@ class UsersController extends BaseController
 
     public function register()
     {
+        $this->title = "Register";
         if ($this->isPost) {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -38,6 +39,7 @@ class UsersController extends BaseController
 
     public function login()
     {
+        $this->title = "Login";
         if ($this->isPost) {
             $username = $_POST['username'];
             $password = $_POST['password'];
@@ -57,5 +59,17 @@ class UsersController extends BaseController
         $this->addInfoMessage("Logout successful.");
         $this->isLoggedIn = false;
         $this->redirectToUrl('/');
+    }
+
+    public function profile($username)
+    {
+        $user = $this->db->getByUsername($username);
+        if (isset($user['username'])) {
+            $this->hasUser = true;
+            $this->user = $user;
+        } else {
+            $this->hasUser = false;
+            $this->addErrorMessage("No such user.");
+        }
     }
 }

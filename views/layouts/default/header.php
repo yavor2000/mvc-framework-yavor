@@ -17,29 +17,30 @@
     <a href="#/"><img src="/content/images/pin.png"></a>
     <nav>
         <ul>
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <li>
-                <a href="/questions/create">Ask Question</a>
-            </li>
+
             <?php if($this->isLoggedIn) : ?>
+                <li id="logoutLi">
+                    <a href="/users/logout" id="logoutAtag">Logout</a>
+                </li>
                 <li id="userProfileLi">
                     <a href="/users/profile/<?= htmlspecialchars($this->getUsername()) ?>" id="userProfile">
                         <?= htmlspecialchars($this->getUsername()) ?>'s profile
                     </a>
                 </li>
-                <li id="logoutLi">
-                    <a href="/users/logout" id="logoutAtag">Logout</a>
-                </li>
             <?php else : ?>
-                <li id="loginLi">
-                    <a href="/users/login" id="loginAtag">Login</a>
-                </li>
                 <li id="registerLi">
                     <a href="/users/register" id="registerAtag" style="display: inline-block;">Register</a>
                 </li>
+                <li id="loginLi">
+                    <a href="/users/login" id="loginAtag">Login</a>
+                </li>
             <?php endif; ?>
+            <li>
+                <a href="/questions/create">Ask Question</a>
+            </li>
+            <li>
+                <a href="/">Home</a>
+            </li>
         </ul>
     </nav>
 </header>
