@@ -1,5 +1,7 @@
-<footer>
-    (c) Nakov's MVC Framework, 2015
+
+</div>
+<footer class="mainFooter">
+    <p>(c) MVC Framework, 2015</p>
 </footer>
 </body>
 

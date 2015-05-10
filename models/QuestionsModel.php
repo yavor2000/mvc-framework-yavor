@@ -110,16 +110,6 @@ class QuestionsModel extends BaseModel
         return $statement->get_result();
     }
 
-    public function getAllCategories()
-    {
-        $statement = self::$db->query(
-            "SELECT id, name
-            FROM categories
-            ORDER BY name;");
-
-        return $statement->fetch_all(MYSQLI_ASSOC);
-    }
-
     public function createQuestionTags($questionId, $tagName)
     {
         $tagDb = new TagsModel();
@@ -136,4 +126,5 @@ class QuestionsModel extends BaseModel
 
         return $statement->affected_rows > 0;
     }
+
 }

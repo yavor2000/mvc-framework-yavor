@@ -110,6 +110,20 @@ abstract class BaseController
         return false;
     }
 
+    public function getAllCategories()
+    {
+        $categoriesDb = new CategoriesModel();
+
+        return $categoriesDb->getAll();
+    }
+
+    public function getAllTags()
+    {
+        $tagsDb = new TagsModel();
+
+        return $tagsDb->getAll();
+    }
+
     function addMessage($msg, $type)
     {
         if (!isset($_SESSION['messages'])) {

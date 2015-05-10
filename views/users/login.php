@@ -1,8 +1,8 @@
-<h1>Login</h1>
-<form method="post" action="/users/login">
-    Username: <input type="text" name="username"/>
-    <br/>
-    Password: <input type="password" name="password"/>
-    <br>
-    <input type="submit" value="Login"/>
+<form method="post" action="/users/login" id="loginSection" class="small-question">
+    <h2 id="loginLabel">Login:</h2>
+    <input id="userNameLoginInput" type="text" placeholder="username..." value="" name="username">
+    <input id="passwordLoginInput" type="password" placeholder="password..." value="" name="password">
+    <input id="loginButton" type="submit" value="Login"/>
+    <p>Not a user yet? Please <a href="/users/register">Register</a>.</p>
 </form>
+

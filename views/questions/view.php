@@ -16,6 +16,11 @@
         <p class="small-question-content"><?= htmlspecialchars($this->question['content']) ?></p>
     </main>
     <footer>
+        <?php if($this->userIsAuthorToQuestion($question['id'])) : ?>
+            <form action="/questions/delete/<?= $question['id']?>" method="post">
+                <input type="submit" value="Delete"/>
+            </form>
+        <?php endif;?>
         <a href="/">*tags*</a>
     </footer>
 </article>

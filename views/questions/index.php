@@ -17,12 +17,12 @@
             </div>
         </header>
         <footer>
-            <a href="/">*tags*</a>
             <?php if($this->userIsAuthorToQuestion($question['id'])) : ?>
                 <form action="/questions/delete/<?= $question['id']?>" method="post">
                     <input type="submit" value="Delete"/>
                 </form>
             <?php endif;?>
+            <a href="/">*tags*</a>
         </footer>
     </article>
 <?php endforeach ?>
